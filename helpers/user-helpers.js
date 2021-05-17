@@ -55,13 +55,14 @@ module.exports= {
             if(userCart)
             {
               db.get().collection(collection.CART_COLLECTION)
-              .updateOne({user:objectId(userId)}),
+              .updateOne({user:objectId(userId)},
               {  
                    
                        $push:{products:objectId(proId)}
                    
 
-                 }.then((response)=>{
+                 }
+                 ).then((response)=>{
                      resolve()
                  })
             }
@@ -88,7 +89,7 @@ module.exports= {
                 {
                    
                     $lookup:{
-                        from:collection.CART_COLLECTION,
+                        from:collection.PRODUCT_COLLECTION,
                         let:{prodList:'$products'},
                         pipeline:[
                             {
@@ -103,7 +104,7 @@ module.exports= {
                     }
                 }
             ]).toArray()
-            resolve(cartItems)
+            resolve(cartItems[0].cartItems)
         })
     },
 

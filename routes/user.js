@@ -80,12 +80,12 @@ router.get('/logout',(req,res)=>{
 router.get('/cart',verifyLogin,async(req,res)=>{
   let products=await userHelpers.getCartProducts(req.session.user._id)
   console.log(products);
-  res.render('user/cart',products)
+  res.render('user/cart',{products,user:req.session.user})
 
 }
 )
 router.get('/add-to-cart/:id',verifyLogin,async(req,res)=>{
-  userHelpers.addToCart(req.params.id,req.session._id).then(()=>{ 
+  userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{ 
     res.redirect('/')
   })
 })
