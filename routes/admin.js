@@ -3,7 +3,7 @@ const { post } = require('../app');
 const productHelpers = require('../helpers/product-helpers');
 var router = express.Router();
 var productHelper=require('../helpers/product-helpers');
-const userHelpers = require('../helpers/user-helpers');
+const adminHelpers = require('../helpers/admin-helpers');
 
 
 /* GET users listing. */
@@ -66,7 +66,7 @@ router.post('/edit-product/:id',(req,res)=>{
     })
 })
 router.get('/get-users',(req,res)=>{
-    userHelpers.getAllUsers().then((users)=>{
+    adminHelpers.getAllUsers().then((users)=>{
         console.log(users);
         res.render('admin/get-users',{admin:true,users})
     })
@@ -81,19 +81,39 @@ router.get('/delete-user/:id',(req,res)=>{
 }
   
 )
-router.get('/login',(req,res)=>{
+
+router.get('/admin-signup',(req,res)=>{
+    console.log(' rendering signup page...');
+    res.render('admin/signup') 
+    console.log('signup page loaded successfully....');
+  })
+  router.post('/admin-signup',(req,res)=>{
+    console.log('submitting sign up page requests...');
+    userHelpers.adminSignup(req.body).then((response)=>{
+      console.log(response);
+      req.session.loggedIn=true
+      req.session.admin=response
+      res.redirect('/')
+    })
+  
+  
+  })
+
+
+
+router.get('/admin-login',(req,res)=>{
     
     res.render('admin/login',{admin:true})
 })
 router.post('/login',(req,res)=>{
     console.log('submitting login page requestes...');
     console.log(req.body);
-    userHelpers.adminLogin(req.body).then((response)=>
+    adminHelpers.adminLogin(req.body).then((response)=>
     {
-      if(response.status){
+      if(response.status==true){
         req.session.loggedIn=true
-        req.session.user=response.user
-        res.redirect('admin/get-users')
+        req.session.admin=response.admin
+        res.redirect('/get-users',{admin:true})
       }else{
         req.session.loginErr="Invalied Username or Password"
         res.redirect('/admin/login',{admin:true})

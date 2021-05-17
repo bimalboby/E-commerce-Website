@@ -44,6 +44,22 @@
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
+
+            <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">
+                {{#if admin}}
+                 {{admin.Name}}
+                 {{else}}
+                 Account
+                 {{/if}}
+                 </a>
+             
+               {{#if admin}}
+                   <a href="/logout" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Logout</a>
+                 {{else}}
+                 <a href="/login" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Login</a>
+                 {{/if}}
+              
+
         </nav>
     </header>
     
