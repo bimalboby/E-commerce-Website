@@ -1,0 +1,32 @@
+<section>
+    <div class ="container">
+        <div class="row mt-4">
+        <a href="/admin/add-product" class="btn btn-success ml-auto">Add Product</a>
+    <table class="table mt-5">
+  <thead>
+    <tr>
+      
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Password Status</th>
+      <th scope="col">options</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+      {{#each users}}
+    <tr>
+     
+      <td>{{this.Name}}</td>
+      <td>{{this.Email}}</td>
+      <td>Stored in DB (encrypted)</td>
+      <td><a href="/admin/delete-user/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you want to delete the user {{this.Name}} ')">Delete user</a></td>
+      </tr>
+    
+    {{/each}}
+  
+  </tbody>
+</table>
+  </div>
+
+</section>
