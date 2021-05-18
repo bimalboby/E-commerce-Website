@@ -90,9 +90,19 @@ router.get('/cart',verifyLogin,async(req,res)=>{
 }
 )
 router.get('/add-to-cart/:id',(req,res)=>{
-  console.log('api cslll');
+  console.log('api call');
   userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{ 
     res.json({status:true})
+  })
+})
+
+router.post('/change-product-quantity',(req,res,next)=>{
+  console.log(req.body);
+  userHelpers.changeProductQuantity(req.body).then((response)=>{
+    res.json(response)
+    
+
+
   })
 })
   
