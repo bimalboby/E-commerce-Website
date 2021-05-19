@@ -112,9 +112,9 @@ router.post('/change-product-quantity', verifyLogin, (req, res, next) => {
   console.log(req.body);
   userHelpers.changeProductQuantity(req.body).then(async (response) => {
     response.total = 0
-    // if (req.body.count != -1 || req.body.quantity != 1) {
-    // response.total = await userHelpers.getTotalAmount(req.body.user)
-    // }
+     if (req.body.count != -1 || req.body.quantity != 1) {
+     response.total = await userHelpers.getTotalAmount(req.body.user)
+     }
     res.json(response)
 
 
@@ -122,7 +122,7 @@ router.post('/change-product-quantity', verifyLogin, (req, res, next) => {
 })
 router.get('/place-order', verifyLogin, async (req, res) => {
   let total = await userHelpers.getTotalAmount(req.session.user._id)
-  res.render('user/place-order', { total, user: req.session.user })
+  res.render('user/place-order', {total})
 })
 module.exports = router;
     

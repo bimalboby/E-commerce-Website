@@ -55,6 +55,7 @@ module.exports= {
             item: objectId(proId),
             quantity: 1
         }
+        
         return new Promise(async (resolve, reject) => {
             let userCart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: objectId(userId) })
             if (userCart) {
@@ -203,19 +204,22 @@ module.exports= {
                         item: 1, quantity: 1, product: { $arrayElemAt: ['$product', 0] }
                     }
                 },
+                
                 {
                     $group: {
                         _id: null,
-                        total: { $sum: { $multiply: ['$quantity', '$product.Price'] } }
+                        
+                        total: { $sum: { $multiply: ['$quantity', '$toInt:$product.Price'] } }
                     }
                 }
 
             ]).toArray()
-            
-
+          
+            console.log(total[0].total);
+            console.log(total);
             resolve(total[0].total)
 
         })
 
-    },
+    }
 }
