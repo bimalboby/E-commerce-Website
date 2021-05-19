@@ -83,15 +83,36 @@ router.get('/logout',(req,res)=>{
   res.redirect('/')
 })
 router.get('/cart', verifyLogin, async (req, res) => {
-  let products = await userHelpers.getCartProducts(req.session.user._id)
-   let totalValue =0
+ 
+  
+    let products = await userHelpers.getCartProducts(req.session.user._id)
+  //  let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
   
   // if(products.length>0){
   //   totalValue = await userHelpers.getTotalAmount(req.session.user._id)
   // }
+ /////////
+  let numberOfProducts=null 
+  let proNum=[]
+  for(numberOfProducts=0 ; numberOfProducts<=products.length; numberOfProducts++)
+  { 
+    for(productsList=0 ; productsList<=numberOfProducts;productsList++)
+    {
+      proNum[productsList]=parseInt(products[numberOfProducts].product.Price)
+      
+
+    }
+    
+  }
   
-  console.log(products);
+  let pro2=parseInt(products[1].product.Price)
+  let totalValue=pro1+pro2
+  ///////////
+
+  
+  
   res.render('user/cart', { products, user: req.session.user, totalValue })
+  
 })
 router.get('/add-to-cart/:id',(req,res)=>{
   console.log('api call');
