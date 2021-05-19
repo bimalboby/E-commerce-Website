@@ -82,13 +82,17 @@ router.get('/logout',(req,res)=>{
   req.session.destroy()
   res.redirect('/')
 })
-router.get('/cart',verifyLogin,async(req,res)=>{
-  let products=await userHelpers.getCartProducts(req.session.user._id)
+router.get('/cart', verifyLogin, async (req, res) => {
+  let products = await userHelpers.getCartProducts(req.session.user._id)
+   let totalValue =0
+  
+  // if(products.length>0){
+  //   totalValue = await userHelpers.getTotalAmount(req.session.user._id)
+  // }
+  
   console.log(products);
-  res.render('user/cart',{products,user:req.session.user}) 
-
-}
-)
+  res.render('user/cart', { products, user: req.session.user, totalValue })
+})
 router.get('/add-to-cart/:id',(req,res)=>{
   console.log('api call');
   userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{ 
@@ -96,19 +100,29 @@ router.get('/add-to-cart/:id',(req,res)=>{
   })
 })
 
-router.post('/change-product-quantity',(req,res,next)=>{
+router.post('/delete-Product', (req, res, next) => {
   console.log(req.body);
-  userHelpers.changeProductQuantity(req.body).then((response)=>{
+
+  userHelpers.deleteProduct(req.body).then((response) => {
     res.json(response)
-    
+  })
+})
+
+router.post('/change-product-quantity', verifyLogin, (req, res, next) => {
+  console.log(req.body);
+  userHelpers.changeProductQuantity(req.body).then(async (response) => {
+    response.total = 0
+    // if (req.body.count != -1 || req.body.quantity != 1) {
+    // response.total = await userHelpers.getTotalAmount(req.body.user)
+    // }
+    res.json(response)
 
 
   })
 })
-  router.get('/place-order', verifyLogin, async (req, res) => {
-    let total = await userHelpers.getTotalAmount(req.session.user._id)
-    res.render('user/place-order', { total, user: req.session.user })
-  })
-  
+router.get('/place-order', verifyLogin, async (req, res) => {
+  let total = await userHelpers.getTotalAmount(req.session.user._id)
+  res.render('user/place-order', { total, user: req.session.user })
+})
 module.exports = router;
     
