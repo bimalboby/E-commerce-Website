@@ -1,0 +1,59 @@
+[33mcommit 6b42d0248d00a4c634413970788f634bce9b0b6c[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Bimal Boby <bimalboby007@gmail.com>
+Date:   Wed May 19 00:31:04 2021 -0800
+
+      TRYING NEW STRUCTURE FOR TOTAL PRODUCTS  (not completed)..
+
+[33mcommit fd22646572581fb645ad4531ba5eabac471ca5c2[m
+Author: Bimal Boby <bimalboby007@gmail.com>
+Date:   Tue May 18 23:24:59 2021 -0800
+
+    cart issue solved,mongo error solved.....now err with the string to int in totalamount (always giving output as 0)
+
+[33mcommit 2c16aecb2386604f9080dcdb6244a6d07a30ac6d[m
+Author: Bimal Boby <bimalboby007@gmail.com>
+Date:   Tue May 18 20:45:54 2021 -0800
+
+    error of cart fixed ,,,   remove product button added(error is there),,,Error in total amount (mongo error)
+
+[33mcommit c75fddb34b479c156f54fa775e7f5f86d3f758de[m
+Author: Bimal Boby <bimalboby007@gmail.com>
+Date:   Tue May 18 18:40:22 2021 -0800
+
+    total price calculation added (but some error in the mongo db side)
+
+[33mcommit e1416a61174b28788f0c430fd7a8774fa9b85dba[m
+Author: Bimal Boby <bimalboby007@gmail.com>
+Date:   Mon May 17 23:47:33 2021 -0800
+
+    cart items increment and decriment options added with ajax model....but errors are there when calling the url  (ERROR code 500)
+
+[33mcommit 55f0e3f59f6cec8e8bf42b43d1a5d72aa2e4e479[m
+Author: Bimal Boby <bimalboby007@gmail.com>
+Date:   Mon May 17 07:09:57 2021 -0800
+
+    ajax model cart added, new structure of cart added
+
+[33mcommit 3ed68b6dab57be843befb700eee2ec87d96ed204[m
+Author: Bimal Boby <bimalboby007@gmail.com>
+Date:   Mon May 17 01:34:41 2021 -0800
+
+    count badge for the cart is add and calculate the count from the database and sent it to the hbs via js
+
+[33mcommit 9437bf0f047e7cfa23d2c3da61b250cb7133123c[m
+Author: Bimal Boby <bimalboby007@gmail.com>
+Date:   Mon May 17 00:55:59 2021 -0800
+
+    add to cart option added , get product from cart option added,all errors from the cart side is fixed
+
+[33mcommit 43c7272d64f70a2e6e9c849073b310724c000cea[m
+Author: Bimal Boby <bimalboby007@gmail.com>
+Date:   Sun May 16 22:02:07 2021 -0800
+
+    admin helpers seperated to different file  for tracking it easily ,,,       ERROR    in admin login
+
+[33mcommit a7b0991e5ca1ee46b141b69b4b2b4a4f23507882[m
+Author: Bimal Boby <bimalboby007@gmail.com>
+Date:   Sun May 16 19:12:26 2021 -0800
+
+    completed : loginsignup,section keeping,admin pannel functions,product adding,product deleting,product editing,viewall users,  Errors:admin login need to be set up,coding completed errors are there    ToDo:  cart creation,add to cart,increament options,checkout options,payment gateway integrations,viewing orders in admin pannel

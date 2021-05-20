@@ -84,36 +84,44 @@ router.get('/logout',(req,res)=>{
 })
 router.get('/cart', verifyLogin, async (req, res) => {
  
-  
-    let products = await userHelpers.getCartProducts(req.session.user._id)
-  //  let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
-  
-  // if(products.length>0){
-  //   totalValue = await userHelpers.getTotalAmount(req.session.user._id)
-  // }
- /////////
-  let numberOfProducts=null 
-  let proNum=[]
-  for(numberOfProducts=0 ; numberOfProducts<=products.length; numberOfProducts++)
-  { 
-    for(productsList=0 ; productsList<=numberOfProducts;productsList++)
-    {
-      proNum[productsList]=parseInt(products[numberOfProducts].product.Price)
-      
+   
 
-    }
+    var products = await userHelpers.getCartProducts(req.session.user._id)
+    console.log("quantity of 1 product:"+products[0].quantity);
+    console.log("price of 1 product"+products[0].product.Price);
+    console.log("length of cart:"+products.length);
     
+ 
+  var numberOfProducts
+  var proNum=[]
+  var productsList=0
+  var intConv
+
+
+  for(numberOfProducts=0 ; numberOfProducts < products.length; numberOfProducts++)
+  
+  { 
+      
+      console.log("price of product ****"+ products[numberOfProducts].product.Price);
+       intConv=parseInt(products[numberOfProducts].product.Price) * parseInt( products[0].quantity )
+
+      proNum[productsList]=intConv
+      productsList++
+     
+ 
   }
   
-  let pro2=parseInt(products[1].product.Price)
-  let totalValue=pro1+pro2
-  ///////////
+ 
+   let totalValue=proNum.reduce((accumulator,currentValue)=>{
+     return accumulator+currentValue
+   },0)
+  
+   res.render('user/cart', { products, user: req.session.user, totalValue })
+
+  })
 
   
-  
-  res.render('user/cart', { products, user: req.session.user, totalValue })
-  
-})
+
 router.get('/add-to-cart/:id',(req,res)=>{
   console.log('api call');
   userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{ 
