@@ -83,51 +83,28 @@ router.get('/logout',(req,res)=>{
   res.redirect('/')
 })
 router.get('/cart', verifyLogin, async (req, res) => {
- 
-   
-
-    var products = await userHelpers.getCartProducts(req.session.user._id)
-    console.log("quantity of 1 product:"+products[0].quantity);
-    console.log("price of 1 product"+products[0].product.Price);
-    console.log("length of cart:"+products.length);
-    
- 
-  var numberOfProducts
-  var proNum=[]
-  var productsList=0
-  var intConv
-
-
-  for(numberOfProducts=0 ; numberOfProducts < products.length; numberOfProducts++)
+  let products = await userHelpers.getCartProducts(req.session.user._id)
+  let totalValue =0
   
-  { 
-      
-      console.log("price of product ****"+ products[numberOfProducts].product.Price);
-       intConv=parseInt(products[numberOfProducts].product.Price) * parseInt( products[0].quantity )
-
-      proNum[productsList]=intConv
-      productsList++
-     
- 
+  if(products.length>0){
+    totalValue = await userHelpers.getTotalAmount(req.session.user._id)
   }
   
- 
-   let totalValue=proNum.reduce((accumulator,currentValue)=>{
-     return accumulator+currentValue
-   },0)
-  
-   res.render('user/cart', { products, user: req.session.user, totalValue })
-
-  })
-
+  console.log(products);
+  res.render('user/cart', { products, user: req.session.user, totalValue })
+})
   
 
 router.get('/add-to-cart/:id',(req,res)=>{
   console.log('api call');
+  console.log(req.params);
+  //console.log(req.params.id);
+  
   userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{ 
     res.json({status:true})
   })
 })
+
 router.post('/delete-Product', (req, res, next) => {
   console.log(req.body);
 

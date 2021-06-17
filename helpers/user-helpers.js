@@ -216,19 +216,16 @@ module.exports= {
                         item: 1, quantity: 1, product: { $arrayElemAt: ['$product', 0] }
                     }
                 },
-                
                 {
                     $group: {
                         _id: null,
-                        
-                        total: { $sum: { $multiply: ['$quantity', '$toInt:$product.Price'] } }
+                        total: { $sum: { $multiply: ['$quantity', '$product.Price'] } }
                     }
                 }
 
             ]).toArray()
-          
-            console.log(total[0].total);
-            console.log(total);
+            
+
             resolve(total[0].total)
 
         })

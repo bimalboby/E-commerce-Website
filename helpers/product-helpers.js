@@ -4,8 +4,16 @@ var objectId=require('mongodb').ObjectID
 
 module.exports={
     addproduct:(product,callback)=>{
-        console.log(product)
-        db.get().collection('product').insertOne(product).then((data)=>{
+        console.log(product);
+        var item;
+        item = {
+            Name:product.Name,
+            Category:product.Category,
+            Price:parseInt(product.Price),
+            Description:product.Description
+        }
+        console.log("item detaols #####"+item.Price+ "  "+item.Name);
+        db.get().collection('product').insertOne(item).then((data)=>{
            
         callback(data.ops[0]._id)
         })
